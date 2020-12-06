@@ -11,7 +11,7 @@
   <div></div>
   <script>
     // Update the UI
-    const isIframe = window.parent !== window;
+    const isIframe = window.top !== window;
     const typeOfFrame = isIframe ? 'an iframe' : 'a top level page';
     document.querySelector('b').innerHTML = typeOfFrame;
 
@@ -22,7 +22,11 @@
 
     // Log any messages
     window.addEventListener('message', (event) => {
-      console.log(`${location.origin} received ${event.data}`);
+      if (event.origin === location.origin) {
+        console.log('[ignore message sent by itself]');
+      } else {
+        console.log(`${location.origin} received ${event.data}`);
+      }
     });
 
     // Post messages
