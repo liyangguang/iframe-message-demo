@@ -23,7 +23,7 @@
     // Log any messages
     window.addEventListener('message', (event) => {
       if (event.origin === location.origin) {
-        console.log('[ignore message sent by itself]');
+        console.log('[self]', event.data);
       } else {
         console.log(`${location.origin} received ${event.data}`);
       }
