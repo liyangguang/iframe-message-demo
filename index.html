@@ -8,11 +8,31 @@
 <body>
   <p>This is a demo for iframe communication using window message.</p>
   <p>This page is <b></b></p>
+  <div></div>
   <script>
+    // Update the UI
     const isIframe = window.parent !== window;
     const typeOfFrame = isIframe ? 'an iframe' : 'a top level page';
     document.querySelector('b').innerHTML = typeOfFrame;
-    window.postMessage(`This is a message from ${location.origin} (${typeOfFrame})`);
+
+    // Add the iframe
+    if (location.origin === 'https://iframe-message-demo-parent.netlify.app/') {
+      document.querySelector('div').innerHTML = '<iframe src="https://iframe-message-demo-child.netlify.app/"></iframe>';
+    }
+
+    // Log any messages
+    window.addEventListener('message', console.log);
+
+    // Post messages
+    window.postMessage(`This is a message from ${location.origin} (${typeOfFrame}). Without target origin, from its window`);
+    window.postMessage(`This is a message from ${location.origin} (${typeOfFrame}). With target origin *, from its window`, '*');
+    window.postMessage(`This is a message from ${location.origin} (${typeOfFrame}). With target origin child, from its window`, 'https://iframe-message-demo-child.netlify.app/');
+    window.postMessage(`This is a message from ${location.origin} (${typeOfFrame}). With target origin parent, from its window`, 'https://iframe-message-demo-parent.netlify.app/');
+
+    if (document.querySelector('iframe')) {
+      console.log(document.querySelector('iframe').contentWindow)
+      console.log(document.querySelector('iframe').postMessage)
+    }
   </script>
 </body>
 </html>
