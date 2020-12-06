@@ -22,24 +22,28 @@
 
     // Log any messages
     window.addEventListener('message', (event) => {
-      if (event.origin === location.origin) {
-        console.log('[self]', event.data);
-      } else {
-        console.log(`${location.origin} received ${event.data}`);
-      }
+      console.log(`{${event.origin === location.origin ? '[echo self]' : '[received]'} ${location.origin} received ${event.data}`);
     });
 
     // Post messages
+    console.log('[sending] Target origin: undefined, from its window');
     window.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, from its window`);
+    console.log('[sending] Target origin: *, from its window');
     window.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: *, from its window`, '*');
+    console.log('[sending] Target origin: child, from its window');
     window.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: child, from its window`, 'https://iframe-message-demo-child.netlify.app');
+    console.log('[sending] Target origin: parent, from its window');
     window.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, from its window`, 'https://iframe-message-demo-parent.netlify.app');
 
     if (document.querySelector('iframe')) {
       const iframeWindow = document.querySelector('iframe').contentWindow;
+      console.log('[sending] Target origin: undefined, from iframe window');
       iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, from iframe window`);
+      console.log('[sending] Target origin: *, from iframe window');
       iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: *, from iframe window`, '*');
+      console.log('[sending] Target origin: child, from iframe window');
       iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: child, from iframe window`, 'https://iframe-message-demo-child.netlify.app');
+      console.log('[sending] Target origin: parent, from iframe window');
       iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, from iframe window`, 'https://iframe-message-demo-parent.netlify.app');
     }
   </script>
