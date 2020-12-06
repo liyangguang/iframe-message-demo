@@ -38,16 +38,6 @@
       window.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to its window`, 'https://iframe-message-demo-parent.netlify.app');
 
       if (isIframe) {
-        const iframeWindow = document.querySelector('iframe').contentWindow;
-        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to iframe window`);
-        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to iframe window`);
-        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: *, to iframe window`);
-        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: *, to iframe window`, '*');
-        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: child, to iframe window`);
-        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: child, to iframe window`, 'https://iframe-message-demo-child.netlify.app');
-        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to iframe window`);
-        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to iframe window`, 'https://iframe-message-demo-parent.netlify.app');
-      } else {
         const parentWindow = window.top;
         console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to parent window`);
         parentWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to parent window`);
@@ -57,6 +47,16 @@
         parentWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: child, to parent window`, 'https://iframe-message-demo-child.netlify.app');
         console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to parent window`);
         parentWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to parent window`, 'https://iframe-message-demo-parent.netlify.app');
+      } else {
+        const iframeWindow = document.querySelector('iframe').contentWindow;
+        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to iframe window`);
+        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: undefined, to iframe window`);
+        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: *, to iframe window`);
+        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: *, to iframe window`, '*');
+        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: child, to iframe window`);
+        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: child, to iframe window`, 'https://iframe-message-demo-child.netlify.app');
+        console.log(`[sending] Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to iframe window`);
+        iframeWindow.postMessage(`Message from ${location.origin} (${typeOfFrame}). Target origin: parent, to iframe window`, 'https://iframe-message-demo-parent.netlify.app');
       }
     }, 1000);
   </script>
